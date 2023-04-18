@@ -74,11 +74,16 @@ class Product(db.Model):
 
 
 class User:
-    __tablename = 'product'
+    __tablename__ = 'product'
 
     tg_id = Column(Integer, primary_key=True)
     phone_number = Column(BigInteger)
     age = Column(Integer)
     role = Column(String)
 
-    
+    def __str__(self):
+        return self.role
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.tg_id}'
+ 
