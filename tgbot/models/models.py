@@ -9,7 +9,6 @@ db = Gino()
 
 
 class News(db.Model):
-
     __tablename__ = 'news'
 
     Id = Column(Integer, primary_key=True)
@@ -26,7 +25,6 @@ class News(db.Model):
 
 
 class Category(db.Model):
-
     __tablename__ = 'category'
 
     Id = Column(Integer, primary_key=True)
@@ -40,7 +38,6 @@ class Category(db.Model):
 
 
 class InnerCategory(db.Model):
-
     __tablename__ = 'inner_category'
 
     Id = Column(Integer, primary_key=True)
@@ -55,7 +52,6 @@ class InnerCategory(db.Model):
 
 
 class Product(db.Model):
-
     __tablename__ = 'product'
 
     Id = Column(Integer, primary_key=True)
@@ -75,3 +71,14 @@ class Product(db.Model):
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.Id}'
+
+
+class User:
+    __tablename = 'product'
+
+    tg_id = Column(Integer, primary_key=True)
+    phone_number = Column(BigInteger)
+    age = Column(Integer)
+    role = Column(String)
+
+    
