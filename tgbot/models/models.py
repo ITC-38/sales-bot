@@ -117,3 +117,11 @@ class OrderHistory:
         return f'{self.__tablename__}: {self.id}'
 
 
+class OrderProducts:
+    __tablename__ = 'OrderProducts'
+
+    id = Column(Integer)
+    order_id = Column(Integer, ForeignKey('OrderHistory.id'))
+    product_id = Column(Integer)
+
+    
