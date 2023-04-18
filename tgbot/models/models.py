@@ -74,7 +74,7 @@ class Product(db.Model):
 
 
 class User:
-    __tablename__ = 'product'
+    __tablename__ = 'User'
 
     tg_id = Column(Integer, primary_key=True)
     phone_number = Column(BigInteger)
