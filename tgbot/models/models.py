@@ -100,3 +100,20 @@ class User_Role:
     def __repr__(self):
         return f'{self.__tablename__}: {self.id}'
 
+
+class OrderHistory:
+    __tablename__ = 'OrderHistory'
+
+    id = Column(Integer, primary_key=True)
+    order_sum = Column(BigInteger)
+    product_quantity = Column(Integer)
+    payer = Column(String)
+    delivery = Column(Boolean)
+
+    def __str__(self):
+        return self.payer
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.id}'
+
+
