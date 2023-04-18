@@ -86,4 +86,17 @@ class User:
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.tg_id}'
- 
+
+
+class User_Role:
+    __tablename__ = 'User_Role'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.id}'
+
