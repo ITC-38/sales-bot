@@ -76,28 +76,57 @@ class Products(db.Model):
     def __repr__(self):
         return f'{self.__tablename__}: {self.Id}'
 
-class sales(db.Model):
+
+class Sales(db.Model):
     __tablename__ = 'sales'
+
     Id = Column(Integer, primary_key=True)
     active_status = Column(Boolean)
-    sale_percent = (Integer)
+    sale_percent = Column(Integer)
 
-class sale_products(db.Model):
+    def __str__(self):
+        return self.active_status
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
+
+
+class SaleProducts(db.Model):
     __tablename__ = 'sale_products'
-    Id = Column(Integer)
-    sales_id = Column(Integer, ForeignKey('sales.Id'))
-    product_id = Column(Integer, ForeignKey('sales.Id'))
 
-class cart(db.Model):
-    __tablename__ = 'cart'
     Id = Column(Integer, primary_key=True)
-    name = Column(String(128))
+    sales_id = Column(Integer, ForeignKey('sales.Id'))
+    product_id = Column(Integer, ForeignKey('products.Id'))
 
-class cartProduct(db.Model):
-    __tablename__ = 'cartProduct'
-    Id = Colum(Integer)
-    cart = Colum(Integer, ForeignKey('cart.Id'))
-    product = Colum(String, ForeignKey('products.Id'))
+    def __str__(self):
+        return f'{self.Id}'
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
 
 
+class Cart(db.Model):
+    __tablename__ = 'cart'
 
+    Id = Column(Integer, primary_key=True)
+    owner = Column(BigInteger, ForeignKey('user.tg_id'))
+
+    def __str__(self):
+        return f'{self.Id}'
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
+
+
+class CartProduct(db.Model):
+    __tablename__ = 'cart_product'
+
+    Id = Column(Integer, primary_key=True)
+    cart = Column(Integer, ForeignKey('cart.Id'))
+    product = Column(String, ForeignKey('products.Id'))
+
+    def __str__(self):
+        return f'{self.Id}'
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
