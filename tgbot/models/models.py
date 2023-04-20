@@ -51,14 +51,9 @@ class InnerCategory(db.Model):
         return f'{self.__tablename__}: {self.Id}'
 
 
-<<<<<<< HEAD
-class Product(db.Model):
-    __tablename__ = 'product'
-=======
 class Products(db.Model):
 
     __tablename__ = 'products'
->>>>>>> second
 
     Id = Column(Integer, primary_key=True)
     name = Column(String(128))
@@ -79,7 +74,6 @@ class Products(db.Model):
         return f'{self.__tablename__}: {self.Id}'
 
 
-<<<<<<< HEAD
 class UserRole:
     __tablename__ = 'user_role'
 
