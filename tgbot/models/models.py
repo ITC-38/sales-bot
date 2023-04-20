@@ -54,9 +54,9 @@ class InnerCategory(db.Model):
         return f'{self.__tablename__}: {self.Id}'
 
 
-class Product(db.Model):
+class Products(db.Model):
 
-    __tablename__ = 'product'
+    __tablename__ = 'products'
 
     Id = Column(Integer, primary_key=True)
     name = Column(String(128))
@@ -75,3 +75,29 @@ class Product(db.Model):
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.Id}'
+
+class sales(db.Model):
+    __tablename__ = 'sales'
+    Id = Column(Integer, primary_key=True)
+    active_status = Column(Boolean)
+    sale_percent = (Integer)
+
+class sale_products(db.Model):
+    __tablename__ = 'sale_products'
+    Id = Column(Integer)
+    sales_id = Column(Integer, ForeignKey('sales.Id'))
+    product_id = Column(Integer, ForeignKey('sales.Id'))
+
+class cart(db.Model):
+    __tablename__ = 'cart'
+    Id = Column(Integer, primary_key=True)
+    name = Column(String(128))
+
+class cartProduct(db.Model):
+    __tablename__ = 'cartProduct'
+    Id = Colum(Integer)
+    cart = Colum(Integer, ForeignKey('cart.Id'))
+    product = Colum(String, ForeignKey('products.Id'))
+
+
+
