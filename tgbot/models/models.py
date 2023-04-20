@@ -51,8 +51,14 @@ class InnerCategory(db.Model):
         return f'{self.__tablename__}: {self.Id}'
 
 
+<<<<<<< HEAD
 class Product(db.Model):
     __tablename__ = 'product'
+=======
+class Products(db.Model):
+
+    __tablename__ = 'products'
+>>>>>>> second
 
     Id = Column(Integer, primary_key=True)
     name = Column(String(128))
@@ -73,6 +79,7 @@ class Product(db.Model):
         return f'{self.__tablename__}: {self.Id}'
 
 
+<<<<<<< HEAD
 class UserRole:
     __tablename__ = 'user_role'
 
@@ -129,3 +136,58 @@ class OrderProducts:
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.id}'
+
+
+class Sales(db.Model):
+    __tablename__ = 'sales'
+
+    Id = Column(Integer, primary_key=True)
+    active_status = Column(Boolean)
+    sale_percent = Column(Integer)
+
+    def __str__(self):
+        return self.active_status
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
+
+
+class SaleProducts(db.Model):
+    __tablename__ = 'sale_products'
+
+    Id = Column(Integer, primary_key=True)
+    sales_id = Column(Integer, ForeignKey('sales.Id'))
+    product_id = Column(Integer, ForeignKey('products.Id'))
+
+    def __str__(self):
+        return f'{self.Id}'
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
+
+
+class Cart(db.Model):
+    __tablename__ = 'cart'
+
+    Id = Column(Integer, primary_key=True)
+    owner = Column(BigInteger, ForeignKey('user.tg_id'))
+
+    def __str__(self):
+        return f'{self.Id}'
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
+
+
+class CartProduct(db.Model):
+    __tablename__ = 'cart_product'
+
+    Id = Column(Integer, primary_key=True)
+    cart = Column(Integer, ForeignKey('cart.Id'))
+    product = Column(String, ForeignKey('products.Id'))
+
+    def __str__(self):
+        return f'{self.Id}'
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.Id}'
