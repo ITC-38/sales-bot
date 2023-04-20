@@ -9,7 +9,6 @@ db = Gino()
 
 
 class News(db.Model):
-
     __tablename__ = 'news'
 
     Id = Column(Integer, primary_key=True)
@@ -26,7 +25,6 @@ class News(db.Model):
 
 
 class Category(db.Model):
-
     __tablename__ = 'category'
 
     Id = Column(Integer, primary_key=True)
@@ -40,7 +38,6 @@ class Category(db.Model):
 
 
 class InnerCategory(db.Model):
-
     __tablename__ = 'inner_category'
 
     Id = Column(Integer, primary_key=True)
@@ -55,7 +52,6 @@ class InnerCategory(db.Model):
 
 
 class Product(db.Model):
-
     __tablename__ = 'product'
 
     Id = Column(Integer, primary_key=True)
@@ -75,3 +71,57 @@ class Product(db.Model):
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.Id}'
+
+
+class User:
+    __tablename__ = 'User'
+
+    tg_id = Column(Integer, primary_key=True)
+    phone_number = Column(BigInteger)
+    age = Column(Integer)
+    role = Column(String)
+
+    def __str__(self):
+        return self.role
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.tg_id}'
+
+
+class User_Role:
+    __tablename__ = 'User_Role'
+
+    id = Column(Integer, primary_key=True)
+    name = Column(String)
+
+    def __str__(self):
+        return self.name
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.id}'
+
+
+class OrderHistory:
+    __tablename__ = 'OrderHistory'
+
+    id = Column(Integer, primary_key=True)
+    order_sum = Column(BigInteger)
+    product_quantity = Column(Integer)
+    payer = Column(String)
+    delivery = Column(Boolean)
+
+    def __str__(self):
+        return self.payer
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.id}'
+
+
+class OrderProducts:
+    __tablename__ = 'OrderProducts'
+
+    id = Column(Integer)
+    order_id = Column(Integer, ForeignKey('OrderHistory.id'))
+    product_id = Column(Integer)
+
+    
