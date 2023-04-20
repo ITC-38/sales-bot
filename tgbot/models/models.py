@@ -73,23 +73,8 @@ class Product(db.Model):
         return f'{self.__tablename__}: {self.Id}'
 
 
-class User:
-    __tablename__ = 'User'
-
-    tg_id = Column(Integer, primary_key=True)
-    phone_number = Column(BigInteger)
-    age = Column(Integer)
-    role = Column(String)
-
-    def __str__(self):
-        return self.role
-
-    def __repr__(self):
-        return f'{self.__tablename__}: {self.tg_id}'
-
-
-class User_Role:
-    __tablename__ = 'User_Role'
+class UserRole:
+    __tablename__ = 'user_role'
 
     id = Column(Integer, primary_key=True)
     name = Column(String)
@@ -101,13 +86,28 @@ class User_Role:
         return f'{self.__tablename__}: {self.id}'
 
 
+class User:
+    __tablename__ = 'User'
+
+    tg_id = Column(BigInteger, primary_key=True)
+    phone_number = Column(BigInteger)
+    age = Column(Integer)
+    role = Column(Integer, ForeignKey('user_role.id'))
+
+    def __str__(self):
+        return self.role
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.tg_id}'
+
+
 class OrderHistory:
-    __tablename__ = 'OrderHistory'
+    __tablename__ = 'order_history'
 
     id = Column(Integer, primary_key=True)
     order_sum = Column(BigInteger)
     product_quantity = Column(Integer)
-    payer = Column(String)
+    payer = Column(BigInteger, ForeignKey('user.tg_id'))
     delivery = Column(Boolean)
 
     def __str__(self):
@@ -118,10 +118,14 @@ class OrderHistory:
 
 
 class OrderProducts:
-    __tablename__ = 'OrderProducts'
+    __tablename__ = 'order_products'
 
     id = Column(Integer)
-    order_id = Column(Integer, ForeignKey('OrderHistory.id'))
-    product_id = Column(Integer)
+    order_id = Column(Integer, ForeignKey('order_history.id'))
+    product_id = Column(Integer, ForeignKey('product.Id'))
 
-    
+    def __str__(self):
+        return self.id
+
+    def __repr__(self):
+        return f'{self.__tablename__}: {self.id}'
