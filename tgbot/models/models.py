@@ -1,9 +1,13 @@
+import asyncio
+
 from gino import Gino
 from sqlalchemy import (
     Column, Integer, String,
     DateTime, ForeignKey, BigInteger,
     Boolean
 )
+
+from tgbot.config import load_db_config, BASE_DIR
 
 db = Gino()
 
@@ -74,7 +78,7 @@ class Products(db.Model):
         return f'{self.__tablename__}: {self.Id}'
 
 
-class UserRole:
+class UserRole(db.Model):
     __tablename__ = 'user_role'
 
     id = Column(Integer, primary_key=True)
@@ -87,8 +91,8 @@ class UserRole:
         return f'{self.__tablename__}: {self.id}'
 
 
-class User:
-    __tablename__ = 'User'
+class User(db.Model):
+    __tablename__ = 'user'
 
     tg_id = Column(BigInteger, primary_key=True)
     phone_number = Column(BigInteger)
@@ -96,13 +100,13 @@ class User:
     role = Column(Integer, ForeignKey('user_role.id'))
 
     def __str__(self):
-        return self.role
+        return f'{self.role}'
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.tg_id}'
 
 
-class OrderHistory:
+class OrderHistory(db.Model):
     __tablename__ = 'order_history'
 
     id = Column(Integer, primary_key=True)
@@ -112,21 +116,21 @@ class OrderHistory:
     delivery = Column(Boolean)
 
     def __str__(self):
-        return self.payer
+        return f'{self.payer}'
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.id}'
 
 
-class OrderProducts:
+class OrderProducts(db.Model):
     __tablename__ = 'order_products'
 
     id = Column(Integer)
     order_id = Column(Integer, ForeignKey('order_history.id'))
-    product_id = Column(Integer, ForeignKey('product.Id'))
+    product_id = Column(Integer, ForeignKey('products.Id'))
 
     def __str__(self):
-        return self.id
+        return f'{self.id}'
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.id}'
@@ -140,7 +144,7 @@ class Sales(db.Model):
     sale_percent = Column(Integer)
 
     def __str__(self):
-        return self.active_status
+        return f'{self.active_status}'
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.Id}'
@@ -178,10 +182,20 @@ class CartProduct(db.Model):
 
     Id = Column(Integer, primary_key=True)
     cart = Column(Integer, ForeignKey('cart.Id'))
-    product = Column(String, ForeignKey('products.Id'))
+    product = Column(Integer, ForeignKey('products.Id'))
 
     def __str__(self):
         return f'{self.Id}'
 
     def __repr__(self):
         return f'{self.__tablename__}: {self.Id}'
+
+
+async def create_all():
+    db_conf = load_db_config(BASE_DIR / '.env')
+    await db.set_bind(db_conf.get_db_url())
+    await db.gino.create_all()
+
+
+if __name__ == '__main__':
+    asyncio.run(create_all())
