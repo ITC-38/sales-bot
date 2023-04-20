@@ -1,6 +1,10 @@
 from dataclasses import dataclass
+from pathlib import Path
 
 from environs import Env
+
+
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 @dataclass
@@ -9,6 +13,10 @@ class DbConfig:
     password: str
     user: str
     database: str
+
+    def get_db_url(self):
+        return f'postgresql://{self.user}:{self.password}@' \
+               f'{self.host}:5432/{self.database}'
 
 
 @dataclass
@@ -24,7 +32,7 @@ class Config:
     db: DbConfig
 
 
-def load_config(path: str = None):
+def load_config(path: str = None) -> Config:
     env = Env()
     env.read_env(path)
 
@@ -41,3 +49,14 @@ def load_config(path: str = None):
             database=env.str('DB_NAME')
         )
     )
+
+
+def load_db_config(path: str = None) -> DbConfig:
+    env = Env()
+    env.read_env(path)
+    return DbConfig(
+            host=env.str('DB_HOST'),
+            password=env.str('DB_PASS'),
+            user=env.str('DB_USER'),
+            database=env.str('DB_NAME')
+        )
