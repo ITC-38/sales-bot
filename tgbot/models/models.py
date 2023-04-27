@@ -7,8 +7,6 @@ from sqlalchemy import (
     Boolean
 )
 
-from tgbot.config import load_db_config, BASE_DIR
-
 db = Gino()
 
 
@@ -192,6 +190,10 @@ class CartProduct(db.Model):
 
 
 async def create_all():
+    import sys
+    from pathlib import Path
+    sys.path.append(Path(__file__).resolve().parent.parent.parent.__str__())
+    from tgbot.config import load_db_config, BASE_DIR
     db_conf = load_db_config(BASE_DIR / '.env')
     await db.set_bind(db_conf.get_db_url())
     await db.gino.create_all()
