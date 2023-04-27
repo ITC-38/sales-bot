@@ -95,7 +95,11 @@ class User(db.Model):
     tg_id = Column(BigInteger, primary_key=True)
     phone_number = Column(BigInteger)
     age = Column(Integer)
-    role = Column(Integer, ForeignKey('user_role.id'))
+    role = Column(
+        Integer,
+        ForeignKey('user_role.id'),
+        nullable=True
+    )
 
     def __str__(self):
         return f'{self.role}'
