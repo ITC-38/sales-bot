@@ -18,3 +18,6 @@ ROLES_LIST_BTN = KeyboardButton(
 DELETE_ROLE_BTN = KeyboardButton(
     Commands.delete_role.value
 )
+CREATE_NEWS_BTN = KeyboardButton(
+    Commands.create_news.value
+)

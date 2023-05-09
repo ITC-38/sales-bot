@@ -3,7 +3,7 @@ from aiogram.types import ReplyKeyboardMarkup
 from tgbot.buttons.reply import (
     SEND_PHONE_NUMBER_BTN,
     CREATE_ROLE_BTN, CANCEL,
-    ROLES_LIST_BTN, DELETE_ROLE_BTN
+    ROLES_LIST_BTN, DELETE_ROLE_BTN, CREATE_NEWS_BTN
 )
 
 
@@ -12,7 +12,7 @@ START_OPTIONS = ReplyKeyboardMarkup([
 ], resize_keyboard=True)
 
 START_ADMIN_COMMANDS = ReplyKeyboardMarkup([
-    [ROLES_LIST_BTN]
+    [ROLES_LIST_BTN, CREATE_NEWS_BTN]
 ], resize_keyboard=True)
 
 CANCEL_KEYBOARD = ReplyKeyboardMarkup([

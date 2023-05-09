@@ -5,6 +5,8 @@ from environs import Env
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+MEDIA_DIR = BASE_DIR / 'media/'
+PHOTOS_SAVE_DIR = MEDIA_DIR / 'photos'
 
 
 @dataclass

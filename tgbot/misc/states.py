@@ -14,3 +14,9 @@ class CreateRoleState(StatesGroup):
 
 class DeleteRoleState(StatesGroup):
     role_id = State()
+
+
+class CreateNewsState(StatesGroup):
+    name = State()
+    title = State()
+    preview = State()
