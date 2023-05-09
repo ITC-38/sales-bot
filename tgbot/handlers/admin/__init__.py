@@ -1,7 +1,9 @@
 from aiogram import Dispatcher
 
-from tgbot.handlers.admin.admin import register_admin
+from .admin import register_admin
+from .user_role import register_user_role_handlers
 
 
 def register_admin_handlers(dp: Dispatcher):
     register_admin(dp)
+    register_user_role_handlers(dp)

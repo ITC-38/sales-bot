@@ -82,6 +82,9 @@ class UserRole(db.Model):
     id = Column(Integer, primary_key=True)
     name = Column(String)
 
+    def tg_beautify(self):
+        return f'🆔: {self.id}\n👀: {self.name}'
+
     def __str__(self):
         return self.name
 

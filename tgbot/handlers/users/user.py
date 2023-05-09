@@ -14,8 +14,8 @@ async def user_start(message: Message, state: FSMContext):
     ).gino.first()
     if not user_obj:
         await message.answer(
-            f'Я вас не опознал как регистрированный пользователь...\n'
-            f'Чтобы пройти регистрацию отправьте мне номер вашего телефона\n',
+            f'Пользователь не опознан...\n'
+            f'Отправьте номер телефона чтобы пройти регистрацию\n',
             reply_markup=START_OPTIONS
         )
         await SignUpState.phone_num.set()
