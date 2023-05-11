@@ -10,6 +10,7 @@ from tgbot.misc.path_helper import (
     get_file_format, get_photo_save_path_url
 )
 from tgbot.misc.states import CreateNewsState
+from tgbot.misc.utils import mailing_users
 from tgbot.models.models import News
 
 
@@ -54,6 +55,11 @@ async def upload_post_preview_and_save(message: Message, state: FSMContext):
         created_date=now, photo_path=file_path
     )
     await message.answer('Успешно создал новость')
+    await mailing_users(
+        message.bot,
+        f'<b>{post_name}</b>\n{post_title}\n',
+        file_path
+    )
     await state.finish()
 
 
