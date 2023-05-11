@@ -6,7 +6,9 @@ from aiogram.types import Message, ContentType
 
 from tgbot.config import PHOTOS_SAVE_DIR
 from tgbot.misc.commands import Commands
-from tgbot.misc.path_helper import get_file_format, get_photo_save_path_url
+from tgbot.misc.path_helper import (
+    get_file_format, get_photo_save_path_url
+)
 from tgbot.misc.states import CreateNewsState
 from tgbot.models.models import News
 
